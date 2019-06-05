@@ -1,17 +1,20 @@
 package com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao;
 
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
+import com.ceiba.estacionamiento.comando.dominio.IVehiculoService;
 
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.VehiculoEntidad;
+public interface IVehiculoDao {
 
-public interface IVehiculoDao extends CrudRepository<VehiculoEntidad, Long>{
-
-	VehiculoEntidad findByPlaca(String placa);
+	public void registrarIngresoVehiculo(IVehiculoService vehiculo);
 	
-	/*@Query("select count(tipo_vehiculo) from vehiculo where tipo_vehiculo = 1")
-	int countVehiculosTipoCarro();*/
+	public IVehiculoService obtenerVehiculoIngresado(String placa);
 	
-	/*@Query("select count(tipo_vehiculo) from vehiculo where tipo_vehiculo = 2")
-	int countVehiculosTipoMoto();*/
+	public boolean existeVehiculoEnParqueadero(String placa);
+	
+	public void registrarSalidavehiculo(String placa);
+	
+	public int contarVehiculosEnParqueadero();
+	
+	public int contarMotosEnParquedero();
+	
+	public void eliminarTodos();
 }
