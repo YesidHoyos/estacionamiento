@@ -7,17 +7,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.estacionamiento.comando.dominio.servicio.IVigilante;
 
+
 @RestController
+@RequestMapping("/vehiculo")
 public class ControladorRest {
 
 	@Autowired
 	IVigilante vigilante;
 
-	public void setVigilanteBean(IVigilante vigilante) {
-		this.vigilante = vigilante;
-	}
-
-	@RequestMapping(value = "/vehiculo/ingresar", method = RequestMethod.POST)
+	@RequestMapping(value = "/ingresar", method = RequestMethod.POST)
 	public void ingresarVehiculo() {
 		vigilante.ingresarVehiculo("moto", "EBC", "150cc");
 	}

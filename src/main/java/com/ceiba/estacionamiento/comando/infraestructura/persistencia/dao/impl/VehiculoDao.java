@@ -1,15 +1,17 @@
 package com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ceiba.estacionamiento.comando.dominio.IVehiculoService;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.builder.VehiculoBuilder;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.IVehiculoDao;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.jpa.IVehiculoJPA;
 
 @Component
-public class VehiculoDao implements IVehiculoDao{
+public class VehiculoDao implements IVehiculoRepositorio{
 	
 	@Autowired
 	IVehiculoJPA vehiculoJPA;
@@ -19,12 +21,12 @@ public class VehiculoDao implements IVehiculoDao{
 	}
 
 	@Override
-	public void registrarIngresoVehiculo(IVehiculoService vehiculo) {
+	public void registrarIngresoVehiculo(Vehiculo vehiculo) {
 		vehiculoJPA.save(VehiculoBuilder.convertirAEntidad(vehiculo));
 	}
 	
 	@Override
-	public IVehiculoService obtenerVehiculoIngresado(String placa) {
+	public Vehiculo obtenerVehiculoIngresado(String placa) {
 		return VehiculoBuilder.convertirADominio(vehiculoJPA.findByPlaca(placa));
 	}
 	
@@ -34,8 +36,8 @@ public class VehiculoDao implements IVehiculoDao{
 	}
 	
 	@Override
-	public void registrarSalidavehiculo(String placa) {
-		vehiculoJPA.retirarVehiculo(placa);
+	public void registrarSalidavehiculo(Date fechaSalida, String placa) {
+		vehiculoJPA.retirarVehiculo(fechaSalida, placa);
 	}
 	
 	@Override

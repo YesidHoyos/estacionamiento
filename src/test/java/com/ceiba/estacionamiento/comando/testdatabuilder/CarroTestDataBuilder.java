@@ -4,7 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.ceiba.estacionamiento.comando.dominio.Carro;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
 
 public class CarroTestDataBuilder {
 	

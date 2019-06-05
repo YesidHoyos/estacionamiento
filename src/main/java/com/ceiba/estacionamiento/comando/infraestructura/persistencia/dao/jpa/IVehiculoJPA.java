@@ -1,5 +1,7 @@
 package com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.jpa;
 
+import java.util.Date;
+
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -20,6 +22,6 @@ public interface IVehiculoJPA extends CrudRepository<VehiculoEntidad, Long>{
 	int countVehiculosTipoMoto();
 	
 	@Modifying
-	@Query(nativeQuery = true, value = "update vehiculo set estado = 'R' where placa = ?1 and estado <> 'R'")
-	void retirarVehiculo(String placa);
+	@Query(nativeQuery = true, value = "update vehiculo set estado = 'R', fecha_salida = ?1 where placa = ?2 and estado <> 'R'")
+	void retirarVehiculo(Date fechaSalida, String placa);
 }

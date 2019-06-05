@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.comando.dominio;
+package com.ceiba.estacionamiento.comando.dominio.modelo;
 
 import java.util.Date;
 
@@ -9,7 +9,7 @@ import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 @Component
 public class VehiculoFabrica {
 	
-	public IVehiculoService getVehiculo(String tipo, String placa, String cilindraje) {
+	public Vehiculo getVehiculo(String tipo, String placa, String cilindraje) {
 		switch (tipo) {
 		case Constantes.CARRO: 
 			return new Carro(placa, new Date(), cilindraje);

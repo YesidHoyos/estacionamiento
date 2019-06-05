@@ -21,6 +21,7 @@ pipeline{
 		
 		environment {
         PROJECT_PATH_BACK = 'estacionamiento'
+        BRANCH_NAME = 'master'
 		}
 		parameters{
 			booleanParam defaultValue: false, description: 'Push a registry AWS', name: 'pushdeploy'

@@ -1,5 +1,6 @@
-package com.ceiba.estacionamiento.comando.dominio;
+package com.ceiba.estacionamiento.comando.dominio.modelo;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -7,15 +8,9 @@ import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 
-public class Moto extends Vehiculo implements IVehiculoService{
-	
-	private UtilitarioFecha utilitarioFecha;
-	
-	public void setUtilitarioFecha(UtilitarioFecha utilitarioFecha) {
-		this.utilitarioFecha = utilitarioFecha;
-	}
+public class Carro extends Vehiculo{
 
-	public Moto(String placa, Date fechaIngreso, String cilindraje) {
+	public Carro(String placa, Date fechaIngreso, String cilindraje) {
 		super(placa, fechaIngreso, cilindraje);
 	}
 
@@ -32,8 +27,8 @@ public class Moto extends Vehiculo implements IVehiculoService{
 	}
 
 	@Override
-	public void sacarVehiculo() {
+	public BigDecimal obtenerValorAPagar() {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

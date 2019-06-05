@@ -15,8 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.ceiba.estacionamiento.comando.dominio.Carro;
 import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
@@ -25,16 +25,20 @@ import junit.framework.Assert;
 
 public class CarroTest {
 	
-	private static final String DIA_MIERCOLES = "03/05/2019";
+	private static final String DIA_MIERCOLES = "06/05/2019";
 	private static final String FORMATO_FECHA = "dd/MM/yyyy";
 	Carro carro = null;
 
 	@Autowired
 	UtilitarioFecha utilitarioFecha;
 	
+	@Mock
+	UtilitarioFecha utilfecha;
+	
 	@Before
 	public void setUp() {
 		carro = new CarroTestDataBuilder().build();
+		carro.setUtilitarioFecha(utilitarioFecha);
 	}
 	
 	@Test
@@ -45,7 +49,7 @@ public class CarroTest {
 		Calendar calendario = Calendar.getInstance();
 		calendario.setTime(formato.parse(DIA_MIERCOLES));
 
-		when(utilitarioFecha.obtenerCalendario()).thenReturn(calendario);
+		when(utilfecha.obtenerCalendario()).thenReturn(calendario);
 		//act
 		try {
 			carro.validarIngreso();

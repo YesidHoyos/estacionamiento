@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = "com.ceiba.estacionamiento.comando.*")
+@ComponentScan(basePackages = "com.ceiba.estacionamiento.*")
 public class EstacionamientoApplication {
 
 	public static void main(String[] args) {

@@ -1,17 +1,16 @@
 package com.ceiba.estacionamiento.comando.infraestructura.persistencia.builder;
 
-import com.ceiba.estacionamiento.comando.dominio.Carro;
-import com.ceiba.estacionamiento.comando.dominio.IVehiculoService;
-import com.ceiba.estacionamiento.comando.dominio.Moto;
-import com.ceiba.estacionamiento.comando.dominio.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Moto;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 public class VehiculoBuilder {
 
-	public static IVehiculoService convertirADominio(VehiculoEntidad vehiculoEntidad) {
+	public static Vehiculo convertirADominio(VehiculoEntidad vehiculoEntidad) {
 	
-		IVehiculoService vehiculo = null;
+		Vehiculo vehiculo = null;
 		
 		if(vehiculoEntidad != null) {
 			
@@ -25,9 +24,8 @@ public class VehiculoBuilder {
 		return vehiculo;
 	}
 	
-	public static VehiculoEntidad convertirAEntidad(IVehiculoService vehiculoService) {
+	public static VehiculoEntidad convertirAEntidad(Vehiculo vehiculo) {
 		VehiculoEntidad vehiculoEntidad = null;
-		Vehiculo vehiculo = (Vehiculo)vehiculoService;
 		int tipoVehiculo = 0;
 		
 		if(vehiculo instanceof Carro) {

@@ -1,15 +1,17 @@
 package com.ceiba.estacionamiento.comando.dominio.servicio.impl;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ceiba.estacionamiento.comando.dominio.IVehiculoService;
-import com.ceiba.estacionamiento.comando.dominio.VehiculoFabrica;
 import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.VehiculoFabrica;
+import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.servicio.IVigilante;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.IVehiculoDao;
 
 @Component
 public class Vigilante implements IVigilante {
@@ -18,15 +20,13 @@ public class Vigilante implements IVigilante {
 	VehiculoFabrica vehiculoFabrica;
 	
 	@Autowired
-	IVehiculoDao vehiculoDao;
+	IVehiculoRepositorio vehiculoRepositorio;
 	
 	@Autowired
 	private UtilitarioFecha utilitarioFecha;
 	
-	IVehiculoService vehiculo = null;
-	
-	public void setVehiculoDao(IVehiculoDao vehiculoDao) {
-		this.vehiculoDao = vehiculoDao;
+	public void setVehiculoDao(IVehiculoRepositorio vehiculoDao) {
+		this.vehiculoRepositorio = vehiculoDao;
 	}
 	
 	public void setVehiculoFabrica(VehiculoFabrica vehiculoFabrica) {
@@ -37,17 +37,17 @@ public class Vigilante implements IVigilante {
 	public void ingresarVehiculo(String tipo, String placa, String cilindraje) {
 		
 		validarDiponibilidad(tipo);				
-		vehiculo = vehiculoFabrica.getVehiculo(tipo, placa, cilindraje);
+		Vehiculo vehiculo = vehiculoFabrica.getVehiculo(tipo, placa, cilindraje);
 		vehiculo.setUtilitarioFecha(utilitarioFecha);
 		vehiculo.validarIngreso();
-		vehiculoDao.registrarIngresoVehiculo(vehiculo);
+		vehiculoRepositorio.registrarIngresoVehiculo(vehiculo);
 	}
 
 	private void validarDiponibilidad(String tipo) {
 		
-		if(tipo == Constantes.CARRO) {
+		if(tipo.equals(Constantes.CARRO)) {
 			validarDisponibilidadCarro();
-		} else if(tipo == Constantes.MOTO) {
+		} else if(tipo.equals(Constantes.MOTO)) {
 			validarDisponibilidadMoto();
 		}
 		else {
@@ -56,23 +56,25 @@ public class Vigilante implements IVigilante {
 	}
 	
 	private void validarDisponibilidadCarro() {
-		int cantidadCarros = vehiculoDao.contarVehiculosEnParqueadero();
+		int cantidadCarros = vehiculoRepositorio.contarVehiculosEnParqueadero();
 		if(cantidadCarros >= 20) {
 			throw new VigilanteExcepcion(Constantes.SIN_ESPACIO_DISPONIBLE_CARROS);
 		}
 	}
 	
 	private void validarDisponibilidadMoto() {
-		int cantidadMotos = vehiculoDao.contarMotosEnParquedero();
+		int cantidadMotos = vehiculoRepositorio.contarMotosEnParquedero();
 		if(cantidadMotos >= 10) {
 			throw new VigilanteExcepcion(Constantes.SIN_ESPACIO_DISPONIBLE_MOTOS);
 		}
 	}
 	
 	@Override
-	public void SacarVehiculo(String placa) {
-		// TODO Auto-generated method stub
-		System.out.println("Sacando vehiculo...");
+	public void sacarVehiculo(String placa) {
+		Vehiculo vehiculo = vehiculoRepositorio.obtenerVehiculoIngresado(placa);
+		vehiculo.setFechaSalida(new Date());
+		vehiculo.obtenerValorAPagar();
+		vehiculoRepositorio.registrarSalidavehiculo(vehiculo.getFechaSalida(), placa);		
 	}
 
 }
