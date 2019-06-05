@@ -4,37 +4,34 @@ import java.util.Date;
 
 public abstract class Vehiculo {
 
+	private String placa;
+	private Date fechaIngreso;
+	private String cilindraje;
+	
 	public Vehiculo() {
 
 	}
 	
-	public Vehiculo(String placa, Date fechaIngreso, Date fechaSalida) {
+	public Vehiculo(String placa, Date fechaIngreso, String cilindraje) {
 		this.placa = placa;
 		this.fechaIngreso = fechaIngreso;
-		this.fechaSalida = fechaSalida;
+		this.cilindraje = cilindraje;
 	}
 	
-	private String placa;
-	private Date fechaIngreso;
-	private Date fechaSalida;
 	
+	public String getCilindraje() {
+		return cilindraje;
+	}
+
 	public String getPlaca() {
 		return placa;
 	}
-	public void setPlaca(String placa) {
-		this.placa = placa;
-	}
+
 	public Date getFechaIngreso() {
 		return fechaIngreso;
 	}
 	public void setFechaIngreso(Date fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
-	}
-	public Date getFechaSalida() {
-		return fechaSalida;
-	}
-	public void setFechaSalida(Date fechaSalida) {
-		this.fechaSalida = fechaSalida;
 	}
 	
 }

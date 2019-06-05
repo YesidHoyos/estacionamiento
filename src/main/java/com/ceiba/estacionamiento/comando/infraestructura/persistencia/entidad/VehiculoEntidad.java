@@ -23,12 +23,20 @@ public class VehiculoEntidad {
 	@Column(name = "fecha_ingreso", nullable = false)
 	private Date fechaIngreso;
 	
-	@ManyToOne
+	/*@ManyToOne
     @JoinColumn(name = "tipo_vehiculo", nullable=false)
-	private TipoVehiculoEntidad tipoVehiculo;
+	private TipoVehiculoEntidad tipoVehiculo;*/
+	@Column(name = "tipo_vehiculo", nullable = false)
+	private int tipoVehiculo;
 	
 	@Column(nullable = true)
 	private String cilindraje;
+	
+	@Column(nullable = true)
+	private String estado;
+	
+	@Column(name="fecha_salida", nullable = true)
+	private String fechaSAlida;
 	
 	public String getPlaca() {
 		return placa;
@@ -38,7 +46,7 @@ public class VehiculoEntidad {
 		return fechaIngreso;
 	}
 
-	public TipoVehiculoEntidad getTipoVehiculo() {
+	public int getTipoVehiculo() {
 		return tipoVehiculo;
 	}
 
@@ -46,10 +54,10 @@ public class VehiculoEntidad {
 		return cilindraje;
 	}
 
-	public VehiculoEntidad(String placa, TipoVehiculoEntidad tipoVehiculo, String cilindraje) {
+	public VehiculoEntidad(String placa, int tipoVehiculo, String cilindraje, Date fechaIngreso) {
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo;
 		this.cilindraje = cilindraje;
-		this.fechaIngreso = new Date();
+		this.fechaIngreso = fechaIngreso;
 	}
 }
