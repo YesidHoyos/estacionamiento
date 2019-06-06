@@ -22,9 +22,6 @@ public class Vigilante implements IVigilante {
 	@Autowired
 	IVehiculoRepositorio vehiculoRepositorio;
 	
-	@Autowired
-	private UtilitarioFecha utilitarioFecha;
-	
 	public void setVehiculoDao(IVehiculoRepositorio vehiculoDao) {
 		this.vehiculoRepositorio = vehiculoDao;
 	}
@@ -38,7 +35,6 @@ public class Vigilante implements IVigilante {
 		
 		validarDiponibilidad(tipo);				
 		Vehiculo vehiculo = vehiculoFabrica.getVehiculo(tipo, placa, cilindraje);
-		vehiculo.setUtilitarioFecha(utilitarioFecha);
 		vehiculo.validarIngreso();
 		vehiculoRepositorio.registrarIngresoVehiculo(vehiculo);
 	}

@@ -12,8 +12,8 @@ public interface IVehiculoJPA extends CrudRepository<VehiculoEntidad, Long>{
 
 	VehiculoEntidad findByPlaca(String placa);
 	
-	@Query(nativeQuery = true, value = "select 1 from vehiculo where placa = ?1 and estado <> 'R'")
-	int existeVehiculoEnParqueadero(String placa);
+	@Query(nativeQuery = true, value = "select 'true' from vehiculo where placa = ?1 and estado <> 'R'")
+	String existeVehiculoEnParqueadero(String placa);
 	
 	@Query(nativeQuery = true, value = "select count(1) from vehiculo where tipo_vehiculo = 1 and estado <> 'R'")
 	int countVehiculosTipoCarro();

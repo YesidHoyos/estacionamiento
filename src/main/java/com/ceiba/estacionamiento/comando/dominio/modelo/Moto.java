@@ -1,6 +1,9 @@
 package com.ceiba.estacionamiento.comando.dominio.modelo;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -28,9 +31,9 @@ public class Moto extends Vehiculo{
 
 	@Override
 	public BigDecimal obtenerValorAPagar() {
-		// TODO Auto-generated method stub
-		int diferencia = (int)((this.getFechaIngreso().getTime() - this.getFechaSalida().getTime())/1000);
-		int cantidadHoras = (int)Math.floor(diferencia/3600);
+		LocalDate fechaIngreso = this.getFechaIngreso().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		LocalDate fechaSalida = this.getFechaSalida().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		int cantidadHoras = Period.between(fechaIngreso, fechaSalida).getDays();
 		//if(cantidadHoras > )
 		return null;
 	}

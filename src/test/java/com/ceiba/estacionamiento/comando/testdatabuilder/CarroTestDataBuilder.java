@@ -13,7 +13,7 @@ public class CarroTestDataBuilder {
 	private static final String CILINDRAJE = "1500cc";
 	
 	private static Date getFecha() {
-		String fechaString = "27/02/2016";
+		String fechaString = "06/05/2019";
 		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
 		Date fecha = null;
 		try {

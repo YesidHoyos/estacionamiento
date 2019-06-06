@@ -1,5 +1,6 @@
 package com.ceiba.estacionamiento.comando.dominio.servicio.integracion;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.After;
@@ -12,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.servicio.impl.Vigilante;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.impl.VehiculoDao;
+import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
+import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.VehiculoDao;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -49,5 +52,26 @@ public class VigilanteTest {
 		//assert
 		vehiculoGuardado = vehiculoDao.existeVehiculoEnParqueadero(placa);
 		assertTrue(vehiculoGuardado);
+	}
+	
+	@Test
+	public void ingresarVehiculoNoValido() {
+		
+		//arrange
+		String tipo = "avion";
+		String placa = "MNB123";
+		String cilindraje = "27000cc";
+		//act
+		try {
+			vigilante.ingresarVehiculo(tipo, placa, cilindraje);
+		} catch (VigilanteExcepcion e) {
+			//assert
+			assertEquals(Constantes.VEHICULO_NO_PERMITIDO, e.getMessage());
+		}		
+	}
+	
+	@Test
+	public void ingresarVehiculoCuandoNoHayCupo() {
+		
 	}
 }

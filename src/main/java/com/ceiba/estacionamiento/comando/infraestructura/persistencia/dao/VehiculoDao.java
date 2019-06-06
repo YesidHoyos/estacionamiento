@@ -1,4 +1,4 @@
-package com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.impl;
+package com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao;
 
 import java.util.Date;
 
@@ -32,7 +32,7 @@ public class VehiculoDao implements IVehiculoRepositorio{
 	
 	@Override
 	public boolean existeVehiculoEnParqueadero(String placa) {
-		return (vehiculoJPA.existeVehiculoEnParqueadero(placa) == 1);
+		return (vehiculoJPA.existeVehiculoEnParqueadero(placa) == "true");
 	}
 	
 	@Override
