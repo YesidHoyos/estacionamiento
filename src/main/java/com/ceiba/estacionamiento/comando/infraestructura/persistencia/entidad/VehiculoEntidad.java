@@ -32,8 +32,8 @@ public class VehiculoEntidad {
 	@Column(nullable = true)
 	private String cilindraje;
 	
-	@Column(nullable = true)
-	private String estado;
+	@Column(nullable = false)
+	private String estado = "I";
 	
 	@Column(name="fecha_salida", nullable = true)
 	private String fechaSAlida;

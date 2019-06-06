@@ -11,7 +11,6 @@ import com.ceiba.estacionamiento.comando.dominio.modelo.VehiculoFabrica;
 import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.servicio.IVigilante;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 
 @Component
 public class Vigilante implements IVigilante {

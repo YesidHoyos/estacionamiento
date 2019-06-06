@@ -28,17 +28,17 @@ public class VehiculoBuilder {
 		VehiculoEntidad vehiculoEntidad = null;
 		int tipoVehiculo = 0;
 		
-		if(vehiculo instanceof Carro) {
-			tipoVehiculo = Constantes.TIPO_CARRO;
-		} 
-		else if (vehiculo instanceof Moto) {
-			tipoVehiculo = Constantes.TIPO_MOTO;
-		}
-		
 		if(vehiculo != null) {
+			
+			if(vehiculo instanceof Carro) {
+				tipoVehiculo = Constantes.TIPO_CARRO;
+			} 
+			else if (vehiculo instanceof Moto) {
+				tipoVehiculo = Constantes.TIPO_MOTO;
+			}
+			
 			vehiculoEntidad = new VehiculoEntidad(vehiculo.getPlaca(), tipoVehiculo, vehiculo.getCilindraje(), vehiculo.getFechaIngreso());
 		}
-		
 		return vehiculoEntidad;
 	}
 }

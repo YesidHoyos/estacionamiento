@@ -32,7 +32,7 @@ public class VehiculoDao implements IVehiculoRepositorio{
 	
 	@Override
 	public boolean existeVehiculoEnParqueadero(String placa) {
-		return (vehiculoJPA.existeVehiculoEnParqueadero(placa) == "true");
+		return (vehiculoJPA.existeVehiculoEnParqueadero(placa).equals("true"));
 	}
 	
 	@Override

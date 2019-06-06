@@ -7,12 +7,16 @@ import com.ceiba.estacionamiento.comando.aplicacion.VehiculoPOJO;
 import com.ceiba.estacionamiento.comando.dominio.servicio.IVigilante;
 
 @Component
-public class ManejadorIngresarVehiculo {
+public class ManejadorVehiculo {
 
 	@Autowired
 	IVigilante vigilante;
 	
 	public void ingresarVehiculo(VehiculoPOJO vehiculoPOJO) {
 		vigilante.ingresarVehiculo(vehiculoPOJO.getTipo(), vehiculoPOJO.getPlaca(), vehiculoPOJO.getCilindraje());
+	}
+	
+	public void sacarVehiculo(String placa) {
+		vigilante.sacarVehiculo(placa);
 	}
 }
