@@ -8,14 +8,16 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Moto;
+import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 import com.ceiba.estacionamiento.comando.testdatabuilder.MotoTestDataBuilder;
@@ -31,10 +33,14 @@ public class MotoTest {
 	@Mock
 	UtilitarioFecha utilitarioFecha;
 	
+	@Mock
+	IVehiculoRepositorio vehiculoRepositorio;
+	
 	@Before
 	public void setUp() {
 		moto = new MotoTestDataBuilder().build();
 		moto.setUtilitarioFecha(utilitarioFecha);
+		moto.setVehiculoRepositorio(vehiculoRepositorio);
 	}
 	
 	@Test
@@ -49,10 +55,28 @@ public class MotoTest {
 		//act
 		try {
 			moto.validarIngreso();
-		} catch (VigilanteExcepcion e) {
+		} catch (VehiculoExcepcion e) {
 			//assert
 			assertEquals(Constantes.DIA_NO_HABIL, e.getMessage());
 		}
+		
+	}
+	
+	@Test
+	@Ignore
+	public void calcularValorAPagarTest() {
+		
+	}
+	
+	@Test
+	@Ignore
+	public void ingresarCuandoNoHayCupo() {
+		
+	}
+	
+	@Test
+	@Ignore
+	public void validarExistenciaEnParqueadero() {
 		
 	}
 }

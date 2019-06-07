@@ -9,23 +9,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ceiba.estacionamiento.comando.aplicacion.VehiculoPOJO;
-import com.ceiba.estacionamiento.comando.aplicacion.manejador.ManejadorVehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoVehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.manejador.ManejadorIngresarvehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.manejador.ManejadorSacarVehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
 
 @RestController
 @RequestMapping("/vehiculo")
 public class ControladorRest {
 
 	@Autowired
-	ManejadorVehiculo manejadorVehiculo;
+	ManejadorIngresarvehiculo manejadorIngresarvehiculo;
+	
+	@Autowired
+	ManejadorSacarVehiculo manejadorSacarVehiculo;	
 
 	@RequestMapping(value = "/ingresar", method = RequestMethod.POST)
-	public void ingresarVehiculo(@Valid @RequestBody VehiculoPOJO vehiculoPOJO) {
-		manejadorVehiculo.ingresarVehiculo(vehiculoPOJO);
+	public void ingresarVehiculo(@Valid @RequestBody ComandoVehiculo comandoVehiculo) {
+		manejadorIngresarvehiculo.ingresarVehiculo(comandoVehiculo);
 	}
 	
 	@RequestMapping(value = "/sacar", method = RequestMethod.POST)
-	public void sacarVehiculo(@RequestParam(name = "placa", required = true) String placa) {
-		manejadorVehiculo.sacarVehiculo(placa);
+	public Vehiculo sacarVehiculo(@RequestParam(name = "placa", required = true) String placa) {
+		return manejadorSacarVehiculo.sacarVehiculo(placa);
 	}
 }

@@ -1,6 +1,6 @@
 package com.ceiba.estacionamiento.comando.dominio.repositorio;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
 
@@ -12,7 +12,7 @@ public interface IVehiculoRepositorio {
 	
 	public boolean existeVehiculoEnParqueadero(String placa);
 	
-	public void registrarSalidavehiculo(Date fechaSalida, String placa);
+	public void registrarSalidavehiculo(LocalDateTime fechaSalida, String placa);
 	
 	public int contarVehiculosEnParqueadero();
 	

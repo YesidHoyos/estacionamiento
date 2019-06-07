@@ -1,14 +1,14 @@
-package com.ceiba.estacionamiento.comando.aplicacion;
+package com.ceiba.estacionamiento.comando.aplicacion.comando;
 
 import java.io.Serializable;
 
-public class VehiculoPOJO implements Serializable{
+public class ComandoVehiculo implements Serializable{
 	
 	private static final long serialVersionUID = -1764970284520387975L;
 	
 	private String placa;
 	private String tipo;
-	private String cilindraje;
+	private int cilindraje;
 	
 	public String getPlaca() {
 		return placa;
@@ -22,10 +22,10 @@ public class VehiculoPOJO implements Serializable{
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
-	public String getCilindraje() {
+	public int getCilindraje() {
 		return cilindraje;
 	}
-	public void setCilindraje(String cilindraje) {
+	public void setCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 	}
 }

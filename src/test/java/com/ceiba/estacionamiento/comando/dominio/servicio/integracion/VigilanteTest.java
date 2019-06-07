@@ -8,18 +8,31 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
-import com.ceiba.estacionamiento.comando.dominio.servicio.impl.Vigilante;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
+import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
+import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
+import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.VehiculoDao;
+import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 public class VigilanteTest {
+	
+	Carro carro = null;
+
+	@Autowired
+	UtilitarioFecha utilitarioFecha;
+	
+	@Autowired
+	IVehiculoRepositorio vehiculoRepositorio;
 	
 	@Autowired
 	VehiculoDao vehiculoDao;
@@ -29,7 +42,7 @@ public class VigilanteTest {
 	
 	@Before
 	public void setUp() {
-
+		
 	}	
 
 	@After
@@ -38,33 +51,33 @@ public class VigilanteTest {
 	}
 
 	@Test
-	@Ignore
 	public void ingresarVehiculoTest() {
 		//arrange
-		String tipo = "carro";
-		String placa = "MNB123";
-		String cilindraje = "2500";
-		boolean vehiculoGuardado = false;
+		carro = new CarroTestDataBuilder().conPlaca("MNB123").conCilindraje(2500).build();
+		carro.setUtilitarioFecha(utilitarioFecha);
+		carro.setVehiculoRepositorio(vehiculoRepositorio);
+		
+		boolean vehiculoGuardado = false;	
 		
 		//act
-		vigilante.ingresarVehiculo(tipo, placa, cilindraje);
+		vigilante.ingresarVehiculo(carro);
 		
 		//assert
-		vehiculoGuardado = vehiculoDao.existeVehiculoEnParqueadero(placa);
+		vehiculoGuardado = vehiculoDao.existeVehiculoEnParqueadero(carro.getPlaca());
 		assertTrue(vehiculoGuardado);
 	}
 	
 	@Test
+	@Ignore
 	public void ingresarVehiculoNoValido() {
 		
 		//arrange
-		String tipo = "avion";
-		String placa = "MNB123";
-		String cilindraje = "27000cc";
+		carro = new CarroTestDataBuilder().conPlaca("MNB123").conCilindraje(2500).build();
+		carro.setUtilitarioFecha(utilitarioFecha);
 		//act
 		try {
-			vigilante.ingresarVehiculo(tipo, placa, cilindraje);
-		} catch (VigilanteExcepcion e) {
+			vigilante.ingresarVehiculo(carro);
+		} catch (VehiculoExcepcion e) {
 			//assert
 			assertEquals(Constantes.VEHICULO_NO_PERMITIDO, e.getMessage());
 		}		

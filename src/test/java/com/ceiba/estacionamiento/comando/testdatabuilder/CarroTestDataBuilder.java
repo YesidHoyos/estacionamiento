@@ -1,33 +1,18 @@
 package com.ceiba.estacionamiento.comando.testdatabuilder;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
 
 public class CarroTestDataBuilder {
 	
 	private static final String PLACA = "ABC123";
-	private static final Date FECHA_INGRESO = getFecha();
-	private static final String CILINDRAJE = "1500cc";
-	
-	private static Date getFecha() {
-		String fechaString = "06/05/2019";
-		SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-		Date fecha = null;
-		try {
-			fecha = formato.parse(fechaString);
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		
-		return fecha;
-	}
+	private static final LocalDateTime FECHA_INGRESO = LocalDateTime.of(2019, 05, 06, 12, 0, 0);
+	private static final int CILINDRAJE = 1500;
 	
 	private String placa;
-	private Date fechaIngreso;
-	private String cilindraje;
+	private LocalDateTime fechaIngreso;
+	private int cilindraje;
 	
 	public CarroTestDataBuilder(){
 		this.placa = PLACA;
@@ -40,11 +25,11 @@ public class CarroTestDataBuilder {
 		return this;
 	}
 	
-	public CarroTestDataBuilder conFechaDeIngreso(Date fechaIngreso) {
+	public CarroTestDataBuilder conFechaDeIngreso(LocalDateTime fechaIngreso) {
 		this.fechaIngreso = fechaIngreso;
 		return this;
 	}
-	public CarroTestDataBuilder conCilindraje(String cilindraje) {
+	public CarroTestDataBuilder conCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 		return this;
 	}
