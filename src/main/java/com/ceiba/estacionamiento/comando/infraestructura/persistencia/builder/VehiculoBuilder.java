@@ -1,12 +1,10 @@
 package com.ceiba.estacionamiento.comando.infraestructura.persistencia.builder;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Moto;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
-import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.VehiculoEntidad;
 

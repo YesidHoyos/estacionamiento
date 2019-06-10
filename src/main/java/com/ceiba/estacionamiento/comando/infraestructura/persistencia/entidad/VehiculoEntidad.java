@@ -56,13 +56,6 @@ public class VehiculoEntidad {
 		this.fechaIngreso = fechaIngreso;
 	}
 	
-	public VehiculoEntidad(String placa, int tipoVehiculo, int cilindraje, LocalDateTime fechaIngreso, LocalDateTime fechaSalida, String estado) {
-		this.placa = placa;
-		this.tipoVehiculo = tipoVehiculo;
-		this.cilindraje = cilindraje;
-		this.fechaIngreso = fechaIngreso;
-	}
-	
 	public VehiculoEntidad() {
 		
 	}
