@@ -14,7 +14,7 @@ public interface IVehiculoRepositorio {
 	
 	public void registrarSalidavehiculo(LocalDateTime fechaSalida, String placa);
 	
-	public int contarVehiculosEnParqueadero();
+	public int contarCarrosEnParqueadero();
 	
 	public int contarMotosEnParquedero();
 	

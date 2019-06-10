@@ -44,7 +44,7 @@ public class VehiculoDao implements IVehiculoRepositorio{
 	}
 	
 	@Override
-	public int contarVehiculosEnParqueadero() {
+	public int contarCarrosEnParqueadero() {
 		return vehiculoJPA.countVehiculosTipoCarro();
 	}
 	

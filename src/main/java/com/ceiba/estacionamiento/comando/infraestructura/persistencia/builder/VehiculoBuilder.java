@@ -8,17 +8,10 @@ import com.ceiba.estacionamiento.comando.dominio.modelo.Moto;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
 import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.VehiculoEntidad;
 
 @Component
 public class VehiculoBuilder {
-	
-	@Autowired
-	private UtilitarioFecha utilitarioFecha;
-	
-	@Autowired
-	IVehiculoRepositorio vehiculoRepositorio;
 
 	public Vehiculo convertirADominio(VehiculoEntidad vehiculoEntidad) {
 	
@@ -32,9 +25,7 @@ public class VehiculoBuilder {
 			else if(vehiculoEntidad.getTipoVehiculo() == Constantes.TIPO_MOTO) {
 				vehiculo = new Moto(vehiculoEntidad.getPlaca(), vehiculoEntidad.getFechaIngreso(), vehiculoEntidad.getCilindraje());
 			}
-		}
-		vehiculo.setUtilitarioFecha(utilitarioFecha);	
-		vehiculo.setVehiculoRepositorio(vehiculoRepositorio);
+		}		
 		return vehiculo;
 	}
 	

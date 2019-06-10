@@ -25,6 +25,6 @@ public interface IVehiculoJPA extends CrudRepository<VehiculoEntidad, Long>{
 	
 	@Modifying
 	@Transactional
-	@Query(nativeQuery = true, value = "update vehiculo set estado = 'R', fecha_salida = ?1 where placa = ?2 and estado <> 'R'")
+	@Query(nativeQuery = true, value = "update vehiculo set estado = 'R', fecha_salida = ?1 where placa = ?2 and estado = 'I'")
 	void retirarVehiculo(LocalDateTime fechaSalida, String placa);
 }

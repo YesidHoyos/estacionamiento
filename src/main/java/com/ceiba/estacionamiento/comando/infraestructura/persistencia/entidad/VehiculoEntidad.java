@@ -7,8 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity(name="vehiculo")
 public class VehiculoEntidad {
@@ -23,9 +21,6 @@ public class VehiculoEntidad {
 	@Column(name = "fecha_ingreso", nullable = false)
 	private LocalDateTime fechaIngreso;
 	
-	/*@ManyToOne
-    @JoinColumn(name = "tipo_vehiculo", nullable=false)
-	private TipoVehiculoEntidad tipoVehiculo;*/
 	@Column(name = "tipo_vehiculo", nullable = false)
 	private int tipoVehiculo;
 	
@@ -70,5 +65,5 @@ public class VehiculoEntidad {
 	
 	public VehiculoEntidad() {
 		
-	};
+	}
 }

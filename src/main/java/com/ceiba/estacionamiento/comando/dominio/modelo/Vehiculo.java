@@ -3,12 +3,6 @@ package com.ceiba.estacionamiento.comando.dominio.modelo;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.Calendar;
-
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
-import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 
 public abstract class Vehiculo {
 
@@ -20,21 +14,17 @@ public abstract class Vehiculo {
 	private LocalDateTime fechaSalida;
 	private BigDecimal totalAPagar;			
 
-	protected UtilitarioFecha utilitarioFecha;
-	protected IVehiculoRepositorio vehiculoRepositorio;
-
 	public Vehiculo(String placa, LocalDateTime fechaIngreso, int cilindraje) {
 		this.placa = placa;
 		this.fechaIngreso = fechaIngreso;
 		this.cilindraje = cilindraje;
-	}	
-
-	public void setUtilitarioFecha(UtilitarioFecha utilitarioFecha) {
-		this.utilitarioFecha = utilitarioFecha;
 	}
 	
-	public void setVehiculoRepositorio(IVehiculoRepositorio vehiculoRepositorio) {
-		this.vehiculoRepositorio = vehiculoRepositorio;
+	public Vehiculo(String placa, LocalDateTime fechaIngreso, LocalDateTime fechaSalida, int cilindraje) {
+		this.placa = placa;
+		this.fechaIngreso = fechaIngreso;
+		this.fechaSalida = fechaSalida;
+		this.cilindraje = cilindraje;
 	}
 	
 	public int getCilindraje() {
@@ -66,47 +56,17 @@ public abstract class Vehiculo {
 	
 	public BigDecimal getTotalAPagar() {
 		return totalAPagar;
-	}
-	
-	public void validarIngreso() {
-		Calendar calendario = utilitarioFecha.obtenerCalendario();
-		int diaDeLaSemana = calendario.get(Calendar.DAY_OF_WEEK);
-		char primeraLetraPLaca = this.getPlaca().charAt(0);
-		
-		if(primeraLetraPLaca == 'A' && (diaDeLaSemana != Calendar.MONDAY || diaDeLaSemana != Calendar.SUNDAY)) {
-			throw new VehiculoExcepcion(Constantes.DIA_NO_HABIL);
-		}
-	}
-	
-	public void validarExistenciaEnParqueadero() {
-		if(vehiculoRepositorio.existeVehiculoEnParqueadero(this.getPlaca())) {
-			throw new VehiculoExcepcion(Constantes.VEHICULO_YA_INGRESADO);
-		}
-	}
-	
-	public void validarDiponibilidad() {		
-		if(!(this instanceof Carro || this instanceof Moto)) {
-			throw new VehiculoExcepcion(Constantes.VEHICULO_NO_PERMITIDO);
-		}
-	}
-	
-	public void ingresarAlParquedaero() {
-		vehiculoRepositorio.registrarIngresoVehiculo(this);
 	}	
-	
-	public void registrarSalidaDeParqueadero() {
-		vehiculoRepositorio.registrarSalidavehiculo(this.getFechaSalida(), this.getPlaca());
-	}
 
 	public abstract void calcularValorAPagar();
 	
-	protected int obtenerHorasDeParqueo() {
+	public int obtenerHorasDeParqueo() {
 		Duration duracion = Duration.between(this.getFechaIngreso(), this.getFechaSalida());
 		long duracionSegundos = duracion.getSeconds();
 		return (int)Math.ceil((double)duracionSegundos / 3600d);
 	}
 	
-	protected int[] obtenerTiempoDeParqueo(int horasDeParqueo) {
+	public int[] obtenerTiempoDeParqueo(int horasDeParqueo) {
 		int dias = 0;
 		int horas = 0;
 		int[] tiempoDeParqueo = new int[2];

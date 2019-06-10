@@ -3,10 +3,6 @@ package com.ceiba.estacionamiento.comando.dominio.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-
-
 public class Carro extends Vehiculo{
 	
 	private static final BigDecimal VALOR_HORA = new BigDecimal("1000");
@@ -14,6 +10,10 @@ public class Carro extends Vehiculo{
 	
 	public Carro(String placa, LocalDateTime fechaIngreso, int cilindraje) {
 		super(placa, fechaIngreso, cilindraje);
+	}
+	
+	public Carro(String placa, LocalDateTime fechaIngreso, LocalDateTime fechaSalida, int cilindraje) {
+		super(placa, fechaIngreso, fechaSalida, cilindraje);
 	}
 
 	@Override
@@ -41,14 +41,5 @@ public class Carro extends Vehiculo{
 		totalPagarPorDias = (VALOR_DIA).multiply(new BigDecimal(tiempoDeParqueo[0]));
 		totalPagarPorHoras = (VALOR_HORA).multiply(new BigDecimal(tiempoDeParqueo[1]));
 		return totalPagarPorDias.add(totalPagarPorHoras);
-	}
-	
-	@Override
-	public void validarDiponibilidad() {
-		super.validarDiponibilidad();
-		int cantidadCarros = vehiculoRepositorio.contarVehiculosEnParqueadero();
-		if(cantidadCarros >= 20) {
-			throw new VehiculoExcepcion(Constantes.SIN_ESPACIO_DISPONIBLE_CARROS);
-		}
 	}
 }

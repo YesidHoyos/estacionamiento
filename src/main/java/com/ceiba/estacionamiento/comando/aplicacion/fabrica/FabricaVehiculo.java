@@ -12,16 +12,9 @@ import com.ceiba.estacionamiento.comando.dominio.modelo.Moto;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
 import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
 
 @Component
 public class FabricaVehiculo {
-	
-	@Autowired
-	private UtilitarioFecha utilitarioFecha;
-	
-	@Autowired
-	IVehiculoRepositorio vehiculoRepositorio;
 	
 	public Vehiculo crear(ComandoVehiculo comandoVehiculo) {
 		Vehiculo vehiculo = null;
@@ -33,8 +26,6 @@ public class FabricaVehiculo {
 		} else {
 			throw new VehiculoExcepcion(Constantes.VEHICULO_NO_PERMITIDO);
 		}
-		vehiculo.setUtilitarioFecha(utilitarioFecha);	
-		vehiculo.setVehiculoRepositorio(vehiculoRepositorio);
 		return vehiculo;
 	}
 }
