@@ -94,4 +94,17 @@ public abstract class Vehiculo {
 		return tiempoDeParqueo;
 	}
 	
+	protected BigDecimal obtenerValorPorDias(int horasDeParqueo, BigDecimal valorDia, BigDecimal valorHora) {
+		BigDecimal totalPagarPorDias;
+		BigDecimal totalPagarPorHoras;
+		int[] tiempoDeParqueo = obtenerTiempoDeParqueo(horasDeParqueo);
+		totalPagarPorDias = (valorDia).multiply(new BigDecimal(tiempoDeParqueo[0]));
+		totalPagarPorHoras = (valorHora).multiply(new BigDecimal(tiempoDeParqueo[1]));
+		return totalPagarPorDias.add(totalPagarPorHoras);
+	}
+	
+	protected BigDecimal obtenerValorPorHoras(int horasDeParqueo, BigDecimal valorHora) {
+		return (valorHora).multiply(new BigDecimal(horasDeParqueo));
+	}
+	
 }

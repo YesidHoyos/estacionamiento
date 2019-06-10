@@ -23,23 +23,10 @@ public class Carro extends Vehiculo{
 		int horasDeParqueo = super.obtenerHorasDeParqueo();	
 		
 		if(horasDeParqueo>=9) {
-			totalPagar = obtenerValorPorDias(horasDeParqueo);
+			totalPagar = super.obtenerValorPorDias(horasDeParqueo, VALOR_DIA, VALOR_HORA);
 		} else {
-			totalPagar = obtenerValorPorHoras(horasDeParqueo);
+			totalPagar = super.obtenerValorPorHoras(horasDeParqueo, VALOR_HORA);
 		}
 		this.setTotalAPagar(totalPagar);
 	}	
-	
-	private BigDecimal obtenerValorPorHoras(int horasDeParqueo) {
-		return (VALOR_HORA).multiply(new BigDecimal(horasDeParqueo));
-	}
-	
-	private BigDecimal obtenerValorPorDias(int horasDeParqueo) {
-		BigDecimal totalPagarPorDias;
-		BigDecimal totalPagarPorHoras;
-		int[] tiempoDeParqueo = super.obtenerTiempoDeParqueo(horasDeParqueo);
-		totalPagarPorDias = (VALOR_DIA).multiply(new BigDecimal(tiempoDeParqueo[0]));
-		totalPagarPorHoras = (VALOR_HORA).multiply(new BigDecimal(tiempoDeParqueo[1]));
-		return totalPagarPorDias.add(totalPagarPorHoras);
-	}
 }
