@@ -2,12 +2,12 @@ package com.ceiba.estacionamiento.comando.aplicacion.comando;
 
 import java.io.Serializable;
 
-public class ComandoVehiculo implements Serializable{
+public class ComandoTicketVehiculo implements Serializable{
 	
 	private static final long serialVersionUID = -1764970284520387975L;
 	
 	private String placa;
-	private String tipo;
+	private int tipo;
 	private int cilindraje;
 	
 	public String getPlaca() {
@@ -16,10 +16,10 @@ public class ComandoVehiculo implements Serializable{
 	public void setPlaca(String placa) {
 		this.placa = placa;
 	}
-	public String getTipo() {
+	public int getTipo() {
 		return tipo;
 	}
-	public void setTipo(String tipo) {
+	public void setTipo(int tipo) {
 		this.tipo = tipo;
 	}
 	public int getCilindraje() {

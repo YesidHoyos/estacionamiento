@@ -12,7 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketCarro;
 import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 
 
@@ -21,7 +21,7 @@ import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class CarroTest {
 	
-	Carro carro = null;
+	TicketCarro carro = null;
 	
 	@Before
 	public void setUp() {

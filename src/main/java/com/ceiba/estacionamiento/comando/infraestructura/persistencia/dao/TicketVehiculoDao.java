@@ -5,31 +5,31 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
-import com.ceiba.estacionamiento.comando.dominio.repositorio.IVehiculoRepositorio;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.builder.VehiculoBuilder;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.jpa.IVehiculoJPA;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
+import com.ceiba.estacionamiento.comando.dominio.repositorio.TicketVehiculoRepositorio;
+import com.ceiba.estacionamiento.comando.infraestructura.persistencia.builder.TicketVehiculoBuilder;
+import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.jpa.TicketVehiculoJPA;
 
 @Component
-public class VehiculoDao implements IVehiculoRepositorio{
+public class TicketVehiculoDao implements TicketVehiculoRepositorio{
 	
 	@Autowired
-	IVehiculoJPA vehiculoJPA;
+	TicketVehiculoJPA vehiculoJPA;
 	
 	@Autowired
-	VehiculoBuilder vehiculoBuilder;
+	TicketVehiculoBuilder vehiculoBuilder;
 	
-	public void setVehiculoJPA(IVehiculoJPA vehiculoJPA) {
+	public void setVehiculoJPA(TicketVehiculoJPA vehiculoJPA) {
 		this.vehiculoJPA = vehiculoJPA;
 	}
 
 	@Override
-	public void registrarIngresoVehiculo(Vehiculo vehiculo) {
+	public void registrarIngresoVehiculo(TicketVehiculo vehiculo) {
 		vehiculoJPA.save(vehiculoBuilder.convertirAEntidad(vehiculo));
 	}
 	
 	@Override
-	public Vehiculo obtenerVehiculoIngresado(String placa) {
+	public TicketVehiculo obtenerVehiculoIngresado(String placa) {
 		return vehiculoBuilder.convertirADominio(vehiculoJPA.buscarPorPlaca(placa));
 	}
 	

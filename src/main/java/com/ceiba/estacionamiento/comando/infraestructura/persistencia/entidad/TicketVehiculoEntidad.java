@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name="vehiculo")
-public class VehiculoEntidad {
+public class TicketVehiculoEntidad {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,14 +49,14 @@ public class VehiculoEntidad {
 		return cilindraje;
 	}
 
-	public VehiculoEntidad(String placa, int tipoVehiculo, int cilindraje, LocalDateTime fechaIngreso) {
+	public TicketVehiculoEntidad(String placa, int tipoVehiculo, int cilindraje, LocalDateTime fechaIngreso) {
 		this.placa = placa;
 		this.tipoVehiculo = tipoVehiculo;
 		this.cilindraje = cilindraje;
 		this.fechaIngreso = fechaIngreso;
 	}
 	
-	public VehiculoEntidad() {
+	public TicketVehiculoEntidad() {
 		
 	}
 }

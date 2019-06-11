@@ -1,8 +1,8 @@
 package com.ceiba.estacionamiento.comando.dominio.servicio;
 
-import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 
 public interface ServicioIngresarVehiculo {
 
-	public void ingresarVehiculo(Vehiculo vehiculo);
+	public void ingresarVehiculo(TicketVehiculo vehiculo);
 }

@@ -1,6 +1,7 @@
 package com.ceiba.estacionamiento.comando.dominio.modelo.unitaria;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import static org.mockito.Mockito.when;
 
 import java.text.ParseException;
@@ -16,11 +17,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
-import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.UtilitarioFecha;
+import com.ceiba.estacionamiento.comando.dominio.utilitario.Fecha;
 import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 
 @SpringBootTest
@@ -32,7 +32,7 @@ public class VigilanteTest {
 	private static final String FORMATO_FECHA = "dd/MM/yyyy";
 
 	@Mock
-	UtilitarioFecha utilitarioFecha;
+	Fecha utilitarioFecha;
 
 	@InjectMocks
 	Vigilante vigilante;
@@ -43,22 +43,23 @@ public class VigilanteTest {
 		
 		LocalDateTime fechaIngreso = LocalDateTime.of(2019, 05, 06, 12, 0, 0);
 		String placa = "ABC078";
-		Vehiculo carro = new CarroTestDataBuilder()
+		TicketVehiculo carro = new CarroTestDataBuilder()
 				.conPlaca(placa)
 				.conFechaDeIngreso(fechaIngreso)
 				.build();
 		SimpleDateFormat formato = new SimpleDateFormat(FORMATO_FECHA);
 
-		Calendar calendario = Calendar.getInstance();
-		calendario.setTime(formato.parse(DIA_MIERCOLES));
+		Calendar fechaActual = Calendar.getInstance();
+		fechaActual.setTime(formato.parse(DIA_MIERCOLES));
 
-		when(utilitarioFecha.obtenerCalendario()).thenReturn(calendario);
+		when(utilitarioFecha.obtenerFechaActual()).thenReturn(fechaActual);
 		//act
 		try {
 			vigilante.ingresarVehiculo(carro);
-		} catch (VehiculoExcepcion e) {
+			fail();
+		} catch (VigilanteExcepcion e) {
 			//assert
-			assertEquals(Constantes.DIA_NO_HABIL, e.getMessage());
+			assertEquals(Vigilante.DIA_NO_HABIL, e.getMessage());
 		}
 	}
 }

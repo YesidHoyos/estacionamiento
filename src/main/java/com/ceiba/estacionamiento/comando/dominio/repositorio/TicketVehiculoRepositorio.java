@@ -2,13 +2,13 @@ package com.ceiba.estacionamiento.comando.dominio.repositorio;
 
 import java.time.LocalDateTime;
 
-import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 
-public interface IVehiculoRepositorio {
+public interface TicketVehiculoRepositorio {
 
-	public void registrarIngresoVehiculo(Vehiculo vehiculo);
+	public void registrarIngresoVehiculo(TicketVehiculo vehiculo);
 	
-	public Vehiculo obtenerVehiculoIngresado(String placa);
+	public TicketVehiculo obtenerVehiculoIngresado(String placa);
 	
 	public boolean existeVehiculoEnParqueadero(String placa);
 	

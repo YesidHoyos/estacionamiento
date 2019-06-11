@@ -3,6 +3,7 @@ package com.ceiba.estacionamiento.comando.dominio.servicio.integracion;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,11 +16,11 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VehiculoExcepcion;
-import com.ceiba.estacionamiento.comando.dominio.modelo.Vehiculo;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.Constantes;
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.VehiculoDao;
+import com.ceiba.estacionamiento.comando.dominio.utilitario.TipoVehiculo;
+import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.TicketVehiculoDao;
 import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 import com.ceiba.estacionamiento.comando.testdatabuilder.MotoTestDataBuilder;
 
@@ -28,10 +29,10 @@ import com.ceiba.estacionamiento.comando.testdatabuilder.MotoTestDataBuilder;
 @TestPropertySource(locations = "classpath:application-test.properties")
 public class VigilanteTest {
 	
-	Vehiculo vehiculo = null;
+	TicketVehiculo vehiculo = null;
 	
 	@Autowired
-	VehiculoDao vehiculoDao;
+	TicketVehiculoDao vehiculoDao;
 	
 	@Autowired
 	Vigilante vigilante;
@@ -70,9 +71,10 @@ public class VigilanteTest {
 		try {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
-		} catch (VehiculoExcepcion e) {
+			fail();
+		} catch (VigilanteExcepcion e) {
 			//assert
-			assertEquals(Constantes.SIN_ESPACIO_DISPONIBLE_CARROS, e.getMessage());
+			assertEquals(Vigilante.SIN_ESPACIO_DISPONIBLE_CARROS, e.getMessage());
 		}			
 	}	
 	
@@ -86,9 +88,10 @@ public class VigilanteTest {
 		try {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
-		} catch (VehiculoExcepcion e) {
+			fail();
+		} catch (VigilanteExcepcion e) {
 			//assert
-			assertEquals(Constantes.SIN_ESPACIO_DISPONIBLE_MOTOS, e.getMessage());
+			assertEquals(Vigilante.SIN_ESPACIO_DISPONIBLE_MOTOS, e.getMessage());
 		}			
 	}
 	
@@ -104,9 +107,10 @@ public class VigilanteTest {
 		try {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
-		} catch (VehiculoExcepcion e) {
+			fail();
+		} catch (VigilanteExcepcion e) {
 			//assert
-			assertEquals(Constantes.VEHICULO_YA_INGRESADO, e.getMessage());
+			assertEquals(Vigilante.VEHICULO_YA_INGRESADO, e.getMessage());
 		}		
 	}
 	
@@ -125,7 +129,6 @@ public class VigilanteTest {
 		
 		//assert
 		existeEnParqueadero = vehiculoDao.existeVehiculoEnParqueadero(placa);
-		assertFalse(existeEnParqueadero);
-		
+		assertFalse(existeEnParqueadero);		
 	}
 }

@@ -5,9 +5,9 @@ import java.util.Calendar;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UtilitarioFecha {
+public class Fecha {
 	
-	public Calendar obtenerCalendario() {
+	public Calendar obtenerFechaActual() {
 		return Calendar.getInstance();
 	}
 

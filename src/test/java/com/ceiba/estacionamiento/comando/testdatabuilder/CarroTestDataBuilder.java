@@ -2,7 +2,7 @@ package com.ceiba.estacionamiento.comando.testdatabuilder;
 
 import java.time.LocalDateTime;
 
-import com.ceiba.estacionamiento.comando.dominio.modelo.Carro;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketCarro;
 
 public class CarroTestDataBuilder {
 	
@@ -42,7 +42,7 @@ public class CarroTestDataBuilder {
 		return this;
 	}
 	
-	public Carro build() {
-		return new Carro(this.placa,this.fechaIngreso, this.fechaSalida, this.cilindraje);
+	public TicketCarro build() {
+		return new TicketCarro(this.placa,this.fechaIngreso, this.fechaSalida, this.cilindraje);
 	}
 }

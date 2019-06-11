@@ -7,12 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.VehiculoEntidad;
+import com.ceiba.estacionamiento.comando.infraestructura.persistencia.entidad.TicketVehiculoEntidad;
 
-public interface IVehiculoJPA extends CrudRepository<VehiculoEntidad, Long>{
+public interface TicketVehiculoJPA extends CrudRepository<TicketVehiculoEntidad, Long>{
 
 	@Query(nativeQuery = true, value = "select * from vehiculo where placa = ?1 and estado = 'I'")
-	VehiculoEntidad buscarPorPlaca(String placa);
+	TicketVehiculoEntidad buscarPorPlaca(String placa);
 	
 	@Query(nativeQuery = true, value = "select 'true' from vehiculo where placa = ?1 and estado = 'I'")
 	String existeVehiculoEnParqueadero(String placa);

@@ -3,16 +3,16 @@ package com.ceiba.estacionamiento.comando.dominio.modelo;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-public class Carro extends Vehiculo{
+public class TicketCarro extends TicketVehiculo{
 	
 	private static final BigDecimal VALOR_HORA = new BigDecimal("1000");
 	private static final BigDecimal VALOR_DIA = new BigDecimal("8000");	
 	
-	public Carro(String placa, LocalDateTime fechaIngreso, int cilindraje) {
+	public TicketCarro(String placa, LocalDateTime fechaIngreso, int cilindraje) {
 		super(placa, fechaIngreso, cilindraje);
 	}
 	
-	public Carro(String placa, LocalDateTime fechaIngreso, LocalDateTime fechaSalida, int cilindraje) {
+	public TicketCarro(String placa, LocalDateTime fechaIngreso, LocalDateTime fechaSalida, int cilindraje) {
 		super(placa, fechaIngreso, fechaSalida, cilindraje);
 	}
 
@@ -22,7 +22,7 @@ public class Carro extends Vehiculo{
 		
 		int horasDeParqueo = super.obtenerHorasDeParqueo();	
 		
-		if(horasDeParqueo>=9) {
+		if(horasDeParqueo>=LIMITE_COBRO_POR_HORAS) {
 			totalPagar = super.obtenerValorPorDias(horasDeParqueo, VALOR_DIA, VALOR_HORA);
 		} else {
 			totalPagar = super.obtenerValorPorHoras(horasDeParqueo, VALOR_HORA);
