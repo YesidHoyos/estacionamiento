@@ -10,7 +10,6 @@ import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.repositorio.TicketVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.servicio.ServicioIngresarVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.servicio.ServicioSacarVehiculo;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.TipoVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Fecha;
 
 @Component
@@ -26,7 +25,8 @@ public class Vigilante implements ServicioIngresarVehiculo, ServicioSacarVehicul
 	public static final String SIN_ESPACIO_DISPONIBLE_MOTOS = "No hay disponibilidad de parqueo para motos";
 	public static final String VEHICULO_NO_PERMITIDO = "El tipo de vehiculo no es permitido";
 	public static final String DIA_NO_HABIL = "No se permite el ingreso del vehiculo en día no habil";
-	public static final String VEHICULO_YA_INGRESADO = "El vehiculo  ya fue ingresado al parqueadero";
+	public static final String VEHICULO_YA_INGRESADO = "El vehiculo ya fue ingresado al parqueadero";
+	public static final String VEHICULO_NO_EXISTENTE = "El vehiculo no existe en el parqueadero";
 
 	@Autowired
 	private TicketVehiculoRepositorio vehiculoRepositorio;
@@ -45,6 +45,9 @@ public class Vigilante implements ServicioIngresarVehiculo, ServicioSacarVehicul
 	@Override
 	public TicketVehiculo sacarVehiculo(String placa) {
 		TicketVehiculo vehiculo = vehiculoRepositorio.obtenerVehiculoIngresado(placa);
+		if(vehiculo == null) {
+			throw new VigilanteExcepcion(VEHICULO_NO_EXISTENTE);
+		}
 		vehiculo.setFechaSalida(LocalDateTime.now());
 		vehiculo.calcularValorAPagar();
 		registrarSalidaDeParqueadero(vehiculo);

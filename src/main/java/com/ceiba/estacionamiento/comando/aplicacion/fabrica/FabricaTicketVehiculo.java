@@ -15,17 +15,17 @@ import com.ceiba.estacionamiento.comando.dominio.utilitario.TipoVehiculo;
 @Component
 public class FabricaTicketVehiculo {
 	
-	public TicketVehiculo crear(ComandoTicketVehiculo comandoVehiculo) {
-		TicketVehiculo vehiculo = null;
+	public TicketVehiculo crear(ComandoTicketVehiculo comandoTicketVehiculo) {
+		TicketVehiculo ticketVehiculo = null;
 		
-		if(comandoVehiculo.getTipo() == TipoVehiculo.CARRO) {
-			vehiculo = new TicketCarro(comandoVehiculo.getPlaca(), LocalDateTime.now(), comandoVehiculo.getCilindraje());
-		} else if(comandoVehiculo.getTipo() == TipoVehiculo.MOTO) {
-			vehiculo = new TicketMoto(comandoVehiculo.getPlaca(), LocalDateTime.now(), comandoVehiculo.getCilindraje());
+		if(comandoTicketVehiculo.getTipo() == TipoVehiculo.CARRO) {
+			ticketVehiculo = new TicketCarro(comandoTicketVehiculo.getPlaca(), LocalDateTime.now(), comandoTicketVehiculo.getCilindraje());
+		} else if(comandoTicketVehiculo.getTipo() == TipoVehiculo.MOTO) {
+			ticketVehiculo = new TicketMoto(comandoTicketVehiculo.getPlaca(), LocalDateTime.now(), comandoTicketVehiculo.getCilindraje());
 		} else {
 			throw new VigilanteExcepcion(Vigilante.VEHICULO_NO_PERMITIDO);
 		}
-		return vehiculo;
+		return ticketVehiculo;
 	}
 }
 

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity(name="vehiculo")
+@Entity(name="ticket_vehiculo")
 public class TicketVehiculoEntidad {
 
 	@Id

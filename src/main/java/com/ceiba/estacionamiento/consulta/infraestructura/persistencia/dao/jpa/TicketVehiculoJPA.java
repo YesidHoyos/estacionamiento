@@ -11,6 +11,6 @@ import com.ceiba.estacionamiento.consulta.infraestructura.persistencia.entidad.T
 @Component("consultaTicketVehiculoJPA")
 public interface TicketVehiculoJPA extends CrudRepository<TicketVehiculoEntidad, Long>{
 
-	@Query(nativeQuery = true, value = "select id, placa, tipo_vehiculo, fecha_ingreso from vehiculo where estado = 'I'")
+	@Query(nativeQuery = true, value = "select id, placa, tipo_vehiculo, fecha_ingreso from ticket_vehiculo where estado = 'I'")
 	List<TicketVehiculoEntidad> obtenerVehiculosIngresados();
 }

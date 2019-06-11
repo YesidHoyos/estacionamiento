@@ -7,7 +7,6 @@ import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
-import com.ceiba.estacionamiento.comando.dominio.utilitario.TipoVehiculo;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.TicketVehiculoDao;
 import com.ceiba.estacionamiento.comando.testdatabuilder.CarroTestDataBuilder;
 import com.ceiba.estacionamiento.comando.testdatabuilder.MotoTestDataBuilder;

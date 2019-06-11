@@ -1,6 +1,6 @@
 package com.ceiba.estacionamiento.comando.dominio.utilitario;
 
-public abstract class TipoVehiculo {
+public final class TipoVehiculo {
 	
 	private TipoVehiculo() {
 		

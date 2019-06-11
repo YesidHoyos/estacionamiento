@@ -6,6 +6,16 @@ public class ComandoTicketVehiculo implements Serializable{
 	
 	private static final long serialVersionUID = -1764970284520387975L;
 	
+	public ComandoTicketVehiculo(String placa, int tipo, int cilindraje) {
+		this.placa = placa;
+		this.tipo = tipo;
+		this.cilindraje = cilindraje;
+	}
+	
+	public ComandoTicketVehiculo() {
+		
+	}
+	
 	private String placa;
 	private int tipo;
 	private int cilindraje;
