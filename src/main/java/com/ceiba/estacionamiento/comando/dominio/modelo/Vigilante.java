@@ -35,11 +35,12 @@ public class Vigilante implements ServicioIngresarVehiculo, ServicioSacarVehicul
 	private Fecha utilitarioFecha;
 
 	@Override
-	public void ingresarVehiculo(TicketVehiculo vehiculo) {
+	public TicketVehiculo ingresarVehiculo(TicketVehiculo vehiculo) {
 		validarIngreso(vehiculo.getPlaca());
 		validarDiponibilidadDeParqueo(vehiculo);
 		validarExistenciaEnParqueadero(vehiculo.getPlaca());
 		ingresarAlParquedaero(vehiculo);
+		return vehiculo;
 	}
 
 	@Override

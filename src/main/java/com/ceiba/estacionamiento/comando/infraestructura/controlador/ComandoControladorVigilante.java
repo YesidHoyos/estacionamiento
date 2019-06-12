@@ -3,6 +3,7 @@ package com.ceiba.estacionamiento.comando.infraestructura.controlador;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,7 @@ import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 
 @RestController
 @RequestMapping("/vehiculo")
+@CrossOrigin(origins = "*")
 public class ComandoControladorVigilante {
 
 	@Autowired
@@ -25,12 +27,12 @@ public class ComandoControladorVigilante {
 	ManejadorSacarVehiculo manejadorSacarVehiculo;	
 
 	@PostMapping(value = "/ingresar")
-	public void ingresarVehiculo(@Valid @RequestBody ComandoTicketVehiculo comandoVehiculo) {
-		manejadorIngresarvehiculo.ingresarVehiculo(comandoVehiculo);
+	public ComandoTicketVehiculo ingresarVehiculo(@Valid @RequestBody ComandoTicketVehiculo comandoVehiculo) {
+		return manejadorIngresarvehiculo.ingresarVehiculo(comandoVehiculo);
 	}
 	
 	@PostMapping(value = "/sacar")
-	public TicketVehiculo sacarVehiculo(@RequestParam(name = "placa", required = true) String placa) {
+	public TicketVehiculo sacarVehiculo(@RequestParam(name = "placa") String placa) {
 		return manejadorSacarVehiculo.sacarVehiculo(placa);
 	}
 }

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoTicketVehiculo;
 import com.ceiba.estacionamiento.comando.aplicacion.fabrica.FabricaTicketVehiculo;
+import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.servicio.ServicioIngresarVehiculo;
 
 @Component
@@ -16,8 +17,9 @@ public class ManejadorIngresarvehiculo {
 	@Autowired
 	ServicioIngresarVehiculo servicioIngresarVehiculo;
 	
-	public void ingresarVehiculo(ComandoTicketVehiculo comandoVehiculo) {
-		servicioIngresarVehiculo.ingresarVehiculo(fabricaVehiculo.crear(comandoVehiculo));
+	public ComandoTicketVehiculo ingresarVehiculo(ComandoTicketVehiculo comandoVehiculo) {
+		TicketVehiculo ticketVehiculo = servicioIngresarVehiculo.ingresarVehiculo(fabricaVehiculo.crear(comandoVehiculo));
+		return fabricaVehiculo.obtenerComandoTicketVehiculo(ticketVehiculo);
 	}
 
 }
