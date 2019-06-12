@@ -1,7 +1,7 @@
 pipeline{
 	
 		agent {
-		label 'Ceiba_induccion'
+		label 'Slave_Induccion'
 		}
 	
         
