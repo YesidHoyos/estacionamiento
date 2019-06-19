@@ -1,33 +1,19 @@
 package com.ceiba.estacionamiento.comando.aplicacion.comando;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class ComandoTicketVehiculo implements Serializable{
+public class ComandoTicketVehiculo {
 	
-	private static final long serialVersionUID = -1764970284520387975L;
-	
-	public ComandoTicketVehiculo(String placa, int tipo, int cilindraje) {
-		this.placa = placa;
-		this.tipo = tipo;
-		this.cilindraje = cilindraje;
-	}
-	
+	private String placa;
+	private int tipo;
+	private LocalDateTime fechaIngreso;
+
 	public ComandoTicketVehiculo(String placa, int tipo, LocalDateTime fechaIngreso) {
 		this.placa = placa;
 		this.tipo = tipo;
 		this.fechaIngreso = fechaIngreso;
 	}
 	
-	public ComandoTicketVehiculo() {
-		
-	}
-	
-	private String placa;
-	private int tipo;
-	private int cilindraje;
-	private LocalDateTime fechaIngreso;
-
 	public String getPlaca() {
 		return placa;
 	}
@@ -39,12 +25,6 @@ public class ComandoTicketVehiculo implements Serializable{
 	}
 	public void setTipo(int tipo) {
 		this.tipo = tipo;
-	}
-	public int getCilindraje() {
-		return cilindraje;
-	}
-	public void setCilindraje(int cilindraje) {
-		this.cilindraje = cilindraje;
 	}
 	public LocalDateTime getFechaIngreso() {
 		return fechaIngreso;

@@ -6,7 +6,11 @@ import java.util.Calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.DiaNoHabilExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.EspacioNoDiponibleExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.NoExisteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.NoPermitidoExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.YaIngresadoExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.repositorio.TicketVehiculoRepositorio;
 import com.ceiba.estacionamiento.comando.dominio.servicio.ServicioIngresarVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.servicio.ServicioSacarVehiculo;
@@ -29,45 +33,45 @@ public class Vigilante implements ServicioIngresarVehiculo, ServicioSacarVehicul
 	public static final String VEHICULO_NO_EXISTENTE = "El vehiculo no existe en el parqueadero";
 
 	@Autowired
-	private TicketVehiculoRepositorio vehiculoRepositorio;
+	private TicketVehiculoRepositorio ticketVehiculoRepositorio;
 
 	@Autowired
-	private Fecha utilitarioFecha;
+	private Fecha fecha;
 
 	@Override
-	public TicketVehiculo ingresarVehiculo(TicketVehiculo vehiculo) {
-		validarIngreso(vehiculo.getPlaca());
-		validarDiponibilidadDeParqueo(vehiculo);
-		validarExistenciaEnParqueadero(vehiculo.getPlaca());
-		ingresarAlParquedaero(vehiculo);
-		return vehiculo;
+	public TicketVehiculo ingresarVehiculo(TicketVehiculo ticketVehiculo) {
+		validarIngreso(ticketVehiculo.getPlaca());
+		validarDiponibilidadDeParqueo(ticketVehiculo);
+		validarExistenciaEnParqueadero(ticketVehiculo.getPlaca());
+		ingresarAlParquedaero(ticketVehiculo);
+		return ticketVehiculo;
 	}
 
 	@Override
 	public TicketVehiculo sacarVehiculo(String placa) {
-		TicketVehiculo vehiculo = vehiculoRepositorio.obtenerVehiculoIngresado(placa);
-		if(vehiculo == null) {
-			throw new VigilanteExcepcion(VEHICULO_NO_EXISTENTE);
+		TicketVehiculo ticketVehiculo = ticketVehiculoRepositorio.obtenerVehiculoIngresado(placa);
+		if(ticketVehiculo == null) {
+			throw new NoExisteExcepcion(VEHICULO_NO_EXISTENTE);
 		}
-		vehiculo.setFechaSalida(LocalDateTime.now());
-		vehiculo.calcularValorAPagar();
-		registrarSalidaDeParqueadero(vehiculo);
-		return vehiculo;
+		ticketVehiculo.setFechaSalida(LocalDateTime.now());
+		ticketVehiculo.calcularValorAPagar();
+		registrarSalidaDeParqueadero(ticketVehiculo);
+		return ticketVehiculo;
 	}
 
 	private void validarExistenciaEnParqueadero(String placa) {
-		if (vehiculoRepositorio.existeVehiculoEnParqueadero(placa)) {
-			throw new VigilanteExcepcion(VEHICULO_YA_INGRESADO);
+		if (ticketVehiculoRepositorio.existeVehiculoEnParqueadero(placa)) {
+			throw new YaIngresadoExcepcion(VEHICULO_YA_INGRESADO);
 		}
 	}
 
 	private void validarIngreso(String placa) {
-		Calendar fechaActual = utilitarioFecha.obtenerFechaActual();
+		Calendar fechaActual = fecha.obtenerFechaActual();
 		int diaDeLaSemana = fechaActual.get(Calendar.DAY_OF_WEEK);
 		char primeraLetraPLaca = placa.charAt(0);
 
 		if (primeraLetraPLaca == PRIMERA_LETRA_PLACA_NO_VALIDA && !esDiaHabil(diaDeLaSemana)) {
-			throw new VigilanteExcepcion(DIA_NO_HABIL);
+			throw new DiaNoHabilExcepcion(DIA_NO_HABIL);
 		}
 	}
 
@@ -75,36 +79,36 @@ public class Vigilante implements ServicioIngresarVehiculo, ServicioSacarVehicul
 		return diaDeLaSemana == Calendar.MONDAY || diaDeLaSemana == Calendar.SUNDAY;
 	}
 
-	private void validarDiponibilidadDeParqueo(TicketVehiculo vehiculo) {
-		if (vehiculo instanceof TicketCarro) {
+	private void validarDiponibilidadDeParqueo(TicketVehiculo ticketVehiculo) {
+		if (ticketVehiculo instanceof TicketCarro) {
 			validarDiponibilidadParaCarro();
 
-		} else if (vehiculo instanceof TicketMoto) {
+		} else if (ticketVehiculo instanceof TicketMoto) {
 			validarDiponibilidadParaMoto();
 		} else {
-			throw new VigilanteExcepcion(VEHICULO_NO_PERMITIDO);
+			throw new NoPermitidoExcepcion(VEHICULO_NO_PERMITIDO);
 		}
 	}
 
 	private void validarDiponibilidadParaMoto() {
-		int cantidadMotos = vehiculoRepositorio.contarMotosEnParquedero();
+		int cantidadMotos = ticketVehiculoRepositorio.contarMotosEnParquedero();
 		if (cantidadMotos >= NUMERO_MAXIMO_MOTOS) {
-			throw new VigilanteExcepcion(SIN_ESPACIO_DISPONIBLE_MOTOS);
+			throw new EspacioNoDiponibleExcepcion(SIN_ESPACIO_DISPONIBLE_MOTOS);
 		}
 	}
 
 	private void validarDiponibilidadParaCarro() {
-		int cantidadCarros = vehiculoRepositorio.contarCarrosEnParqueadero();
+		int cantidadCarros = ticketVehiculoRepositorio.contarCarrosEnParqueadero();
 		if (cantidadCarros >= NUMERO_MAXIMO_CARROS) {
-			throw new VigilanteExcepcion(SIN_ESPACIO_DISPONIBLE_CARROS);
+			throw new EspacioNoDiponibleExcepcion(SIN_ESPACIO_DISPONIBLE_CARROS);
 		}
 	}
 
-	private void ingresarAlParquedaero(TicketVehiculo vehiculo) {
-		vehiculoRepositorio.registrarIngresoVehiculo(vehiculo);
+	private void ingresarAlParquedaero(TicketVehiculo ticketVehiculo) {
+		ticketVehiculoRepositorio.registrarIngresoVehiculo(ticketVehiculo);
 	}
 
-	private void registrarSalidaDeParqueadero(TicketVehiculo vehiculo) {
-		vehiculoRepositorio.registrarSalidavehiculo(vehiculo.getFechaSalida(), vehiculo.getPlaca());
+	private void registrarSalidaDeParqueadero(TicketVehiculo ticketVehiculo) {
+		ticketVehiculoRepositorio.registrarSalidaVehiculo(ticketVehiculo.getFechaSalida(), ticketVehiculo.getPlaca());
 	}
 }

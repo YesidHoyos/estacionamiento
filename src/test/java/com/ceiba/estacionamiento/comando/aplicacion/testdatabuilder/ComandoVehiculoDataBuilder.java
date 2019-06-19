@@ -1,8 +1,8 @@
 package com.ceiba.estacionamiento.comando.aplicacion.testdatabuilder;
 
-import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoTicketVehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoVehiculo;
 
-public class ComandoTicketVehiculoDataBuilder {
+public class ComandoVehiculoDataBuilder {
 	
 	private static final String PLACA = "ABC123";
 	private static final int TIPO = 1;
@@ -12,29 +12,29 @@ public class ComandoTicketVehiculoDataBuilder {
 	private int tipo;
 	private int cilindraje;
 	
-	public ComandoTicketVehiculoDataBuilder() {
+	public ComandoVehiculoDataBuilder() {
 		this.placa = PLACA;
 		this.tipo = TIPO;
 		this.cilindraje = CILINDRAJE;
 	}
 	
-	public ComandoTicketVehiculoDataBuilder conPlaca(String placa) {
+	public ComandoVehiculoDataBuilder conPlaca(String placa) {
 		this.placa = placa;
 		return this;
 	}
 	
-	public ComandoTicketVehiculoDataBuilder conTipo(int tipo) {
+	public ComandoVehiculoDataBuilder conTipo(int tipo) {
 		this.tipo = tipo;
 		return this;
 	}
 	
-	public ComandoTicketVehiculoDataBuilder conCilindraje(int cilindraje) {
+	public ComandoVehiculoDataBuilder conCilindraje(int cilindraje) {
 		this.cilindraje = cilindraje;
 		return this;
 	}
 	
-	public ComandoTicketVehiculo build() {
-		return new ComandoTicketVehiculo(this.placa, this.tipo, this.cilindraje);
+	public ComandoVehiculo build() {
+		return new ComandoVehiculo(this.placa, this.tipo, this.cilindraje);
 	}
 
 }

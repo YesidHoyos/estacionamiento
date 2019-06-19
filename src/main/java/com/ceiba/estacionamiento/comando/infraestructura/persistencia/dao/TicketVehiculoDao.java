@@ -14,47 +14,47 @@ import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.jpa.Ti
 public class TicketVehiculoDao implements TicketVehiculoRepositorio{
 	
 	@Autowired
-	TicketVehiculoJPA vehiculoJPA;
+	TicketVehiculoJPA ticketVehiculoJPA;
 	
 	@Autowired
-	TicketVehiculoBuilder vehiculoBuilder;
+	TicketVehiculoBuilder ticketVehiculoBuilder;
 	
-	public void setVehiculoJPA(TicketVehiculoJPA vehiculoJPA) {
-		this.vehiculoJPA = vehiculoJPA;
+	public void setVehiculoJPA(TicketVehiculoJPA ticketVehiculoJPA) {
+		this.ticketVehiculoJPA = ticketVehiculoJPA;
 	}
 
 	@Override
-	public void registrarIngresoVehiculo(TicketVehiculo vehiculo) {
-		vehiculoJPA.save(vehiculoBuilder.convertirAEntidad(vehiculo));
+	public void registrarIngresoVehiculo(TicketVehiculo ticketVehiculo) {
+		ticketVehiculoJPA.save(ticketVehiculoBuilder.convertirAEntidad(ticketVehiculo));
 	}
 	
 	@Override
 	public TicketVehiculo obtenerVehiculoIngresado(String placa) {
-		return vehiculoBuilder.convertirADominio(vehiculoJPA.buscarPorPlaca(placa));
+		return ticketVehiculoBuilder.convertirADominio(ticketVehiculoJPA.buscarPorPlaca(placa));
 	}
 	
 	@Override
 	public boolean existeVehiculoEnParqueadero(String placa) {
-		return (vehiculoJPA.existeVehiculoEnParqueadero(placa) == "true");
+		return (ticketVehiculoJPA.existeVehiculoEnParqueadero(placa) == "true");
 	}
 	
 	@Override
-	public void registrarSalidavehiculo(LocalDateTime fechaSalida, String placa) {
-		vehiculoJPA.retirarVehiculo(fechaSalida, placa);
+	public void registrarSalidaVehiculo(LocalDateTime fechaSalida, String placa) {
+		ticketVehiculoJPA.retirarVehiculo(fechaSalida, placa);
 	}
 	
 	@Override
 	public int contarCarrosEnParqueadero() {
-		return vehiculoJPA.countVehiculosTipoCarro();
+		return ticketVehiculoJPA.countVehiculosTipoCarro();
 	}
 	
 	@Override
 	public int contarMotosEnParquedero() {
-		return vehiculoJPA.countVehiculosTipoMoto();
+		return ticketVehiculoJPA.countVehiculosTipoMoto();
 	}
 	
 	@Override
 	public void eliminarTodos() {
-		vehiculoJPA.deleteAll();
+		ticketVehiculoJPA.deleteAll();
 	}
 }

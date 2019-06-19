@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoTicketVehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoVehiculo;
 import com.ceiba.estacionamiento.comando.aplicacion.manejador.ManejadorIngresarvehiculo;
 import com.ceiba.estacionamiento.comando.aplicacion.manejador.ManejadorSacarVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
@@ -28,7 +29,7 @@ public class ComandoControladorVigilante {
 	ManejadorSacarVehiculo manejadorSacarVehiculo;	
 
 	@PostMapping(value = "/vehiculos")
-	public ComandoTicketVehiculo ingresarVehiculo(@Valid @RequestBody ComandoTicketVehiculo comandoVehiculo) {
+	public ComandoTicketVehiculo ingresarVehiculo(@Valid @RequestBody ComandoVehiculo comandoVehiculo) {
 		return manejadorIngresarvehiculo.ingresarVehiculo(comandoVehiculo);
 	}
 	

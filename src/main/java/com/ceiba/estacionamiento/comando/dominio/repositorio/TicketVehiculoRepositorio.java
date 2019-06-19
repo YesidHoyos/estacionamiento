@@ -6,13 +6,13 @@ import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 
 public interface TicketVehiculoRepositorio {
 
-	public void registrarIngresoVehiculo(TicketVehiculo vehiculo);
+	public void registrarIngresoVehiculo(TicketVehiculo ticketVehiculo);
 	
 	public TicketVehiculo obtenerVehiculoIngresado(String placa);
 	
 	public boolean existeVehiculoEnParqueadero(String placa);
 	
-	public void registrarSalidavehiculo(LocalDateTime fechaSalida, String placa);
+	public void registrarSalidaVehiculo(LocalDateTime fechaSalida, String placa);
 	
 	public int contarCarrosEnParqueadero();
 	

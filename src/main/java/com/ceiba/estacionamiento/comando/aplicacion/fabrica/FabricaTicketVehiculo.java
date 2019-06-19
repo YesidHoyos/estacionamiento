@@ -5,7 +5,8 @@ import java.time.LocalDateTime;
 import org.springframework.stereotype.Component;
 
 import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoTicketVehiculo;
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoVehiculo;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.NoPermitidoExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketCarro;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketMoto;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
@@ -15,7 +16,7 @@ import com.ceiba.estacionamiento.comando.dominio.utilitario.TipoVehiculo;
 @Component
 public class FabricaTicketVehiculo {
 	
-	public TicketVehiculo crear(ComandoTicketVehiculo comandoTicketVehiculo) {
+	public TicketVehiculo crear(ComandoVehiculo comandoTicketVehiculo) {
 		TicketVehiculo ticketVehiculo = null;
 		
 		if(comandoTicketVehiculo.getTipo() == TipoVehiculo.CARRO) {
@@ -23,7 +24,7 @@ public class FabricaTicketVehiculo {
 		} else if(comandoTicketVehiculo.getTipo() == TipoVehiculo.MOTO) {
 			ticketVehiculo = new TicketMoto(comandoTicketVehiculo.getPlaca(), LocalDateTime.now(), comandoTicketVehiculo.getCilindraje());
 		} else {
-			throw new VigilanteExcepcion(Vigilante.VEHICULO_NO_PERMITIDO);
+			throw new NoPermitidoExcepcion(Vigilante.VEHICULO_NO_PERMITIDO);
 		}
 		return ticketVehiculo;
 	}
@@ -36,7 +37,7 @@ public class FabricaTicketVehiculo {
 		} else if(ticketVehiculo instanceof TicketMoto) {
 			comandoTicketVehiculo = new ComandoTicketVehiculo(ticketVehiculo.getPlaca(), TipoVehiculo.MOTO, ticketVehiculo.getFechaIngreso());
 		} else {
-			throw new VigilanteExcepcion(Vigilante.VEHICULO_NO_PERMITIDO);
+			throw new NoPermitidoExcepcion(Vigilante.VEHICULO_NO_PERMITIDO);
 		}
 		return comandoTicketVehiculo;
 	}

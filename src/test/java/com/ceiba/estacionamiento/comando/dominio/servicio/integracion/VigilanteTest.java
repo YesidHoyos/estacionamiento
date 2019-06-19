@@ -15,7 +15,8 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.EspacioNoDiponibleExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.YaIngresadoExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
 import com.ceiba.estacionamiento.comando.infraestructura.persistencia.dao.TicketVehiculoDao;
@@ -70,7 +71,7 @@ public class VigilanteTest {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
 			fail();
-		} catch (VigilanteExcepcion e) {
+		} catch (EspacioNoDiponibleExcepcion e) {
 			//assert
 			assertEquals(Vigilante.SIN_ESPACIO_DISPONIBLE_CARROS, e.getMessage());
 		}			
@@ -87,7 +88,7 @@ public class VigilanteTest {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
 			fail();
-		} catch (VigilanteExcepcion e) {
+		} catch (EspacioNoDiponibleExcepcion e) {
 			//assert
 			assertEquals(Vigilante.SIN_ESPACIO_DISPONIBLE_MOTOS, e.getMessage());
 		}			
@@ -106,7 +107,7 @@ public class VigilanteTest {
 			//act
 			vigilante.ingresarVehiculo(vehiculo);
 			fail();
-		} catch (VigilanteExcepcion e) {
+		} catch (YaIngresadoExcepcion e) {
 			//assert
 			assertEquals(Vigilante.VEHICULO_YA_INGRESADO, e.getMessage());
 		}		

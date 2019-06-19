@@ -17,7 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.DiaNoHabilExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
 import com.ceiba.estacionamiento.comando.dominio.modelo.Vigilante;
 import com.ceiba.estacionamiento.comando.dominio.utilitario.Fecha;
@@ -32,7 +32,7 @@ public class VigilanteTest {
 	private static final String FORMATO_FECHA = "dd/MM/yyyy";
 
 	@Mock
-	Fecha utilitarioFecha;
+	Fecha fecha;
 
 	@InjectMocks
 	Vigilante vigilante;
@@ -52,12 +52,12 @@ public class VigilanteTest {
 		Calendar fechaActual = Calendar.getInstance();
 		fechaActual.setTime(formato.parse(DIA_MIERCOLES));
 
-		when(utilitarioFecha.obtenerFechaActual()).thenReturn(fechaActual);
+		when(fecha.obtenerFechaActual()).thenReturn(fechaActual);
 		//act
 		try {
 			vigilante.ingresarVehiculo(carro);
 			fail();
-		} catch (VigilanteExcepcion e) {
+		} catch (DiaNoHabilExcepcion e) {
 			//assert
 			assertEquals(Vigilante.DIA_NO_HABIL, e.getMessage());
 		}

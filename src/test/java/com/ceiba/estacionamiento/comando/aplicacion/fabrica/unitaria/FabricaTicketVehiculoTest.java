@@ -10,10 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoTicketVehiculo;
+import com.ceiba.estacionamiento.comando.aplicacion.comando.ComandoVehiculo;
 import com.ceiba.estacionamiento.comando.aplicacion.fabrica.FabricaTicketVehiculo;
-import com.ceiba.estacionamiento.comando.aplicacion.testdatabuilder.ComandoTicketVehiculoDataBuilder;
-import com.ceiba.estacionamiento.comando.dominio.excepcion.VigilanteExcepcion;
+import com.ceiba.estacionamiento.comando.aplicacion.testdatabuilder.ComandoVehiculoDataBuilder;
+import com.ceiba.estacionamiento.comando.dominio.excepcion.NoPermitidoExcepcion;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketCarro;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketMoto;
 import com.ceiba.estacionamiento.comando.dominio.modelo.TicketVehiculo;
@@ -33,7 +33,7 @@ public class FabricaTicketVehiculoTest {
 	public void crearTicketCarro() {
 
 		// arrange
-		ComandoTicketVehiculo comandoTicketVehiculo = new ComandoTicketVehiculoDataBuilder().conTipo(CARRO).build();
+		ComandoVehiculo comandoTicketVehiculo = new ComandoVehiculoDataBuilder().conTipo(CARRO).build();
 		// act
 		TicketVehiculo ticketVehiculo = fabricaTicketVehiculo.crear(comandoTicketVehiculo);
 		// assert
@@ -43,7 +43,7 @@ public class FabricaTicketVehiculoTest {
 	@Test
 	public void crearTicketMoto() {
 		// arrange
-		ComandoTicketVehiculo comandoTicketVehiculo = new ComandoTicketVehiculoDataBuilder().conTipo(MOTO).build();
+		ComandoVehiculo comandoTicketVehiculo = new ComandoVehiculoDataBuilder().conTipo(MOTO).build();
 		// act
 		TicketVehiculo ticketVehiculo = fabricaTicketVehiculo.crear(comandoTicketVehiculo);
 		// assert
@@ -54,13 +54,13 @@ public class FabricaTicketVehiculoTest {
 	public void crearTicketVehiculoNoValido() {
 
 		// arrange
-		ComandoTicketVehiculo comandoTicketVehiculo = new ComandoTicketVehiculoDataBuilder().conTipo(AVION).build();
+		ComandoVehiculo comandoTicketVehiculo = new ComandoVehiculoDataBuilder().conTipo(AVION).build();
 		
 		try {
 			// act
 			fabricaTicketVehiculo.crear(comandoTicketVehiculo);
 			fail();
-		} catch (VigilanteExcepcion e) {
+		} catch (NoPermitidoExcepcion e) {
 			assertEquals(Vigilante.VEHICULO_NO_PERMITIDO, e.getMessage());
 		}
 	}
