@@ -9,7 +9,7 @@ import com.ceiba.estacionamiento.consulta.dominio.repositorio.TicketVehiculoRepo
 import com.ceiba.estacionamiento.consulta.dominio.servicio.ServicioObtenerVehiculos;
 
 @Component("consultaVigilante")
-public class Vigilante implements ServicioObtenerVehiculos{
+public class ServicioObtenerVehiculo implements ServicioObtenerVehiculos{
 
 	@Autowired
 	TicketVehiculoRepositorio ticketVehiculoRepositorio;

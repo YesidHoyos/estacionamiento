@@ -16,15 +16,15 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ceiba.estacionamiento.consulta.dominio.modelo.DtoTicketVehiculo;
-import com.ceiba.estacionamiento.consulta.dominio.modelo.Vigilante;
+import com.ceiba.estacionamiento.consulta.dominio.modelo.ServicioObtenerVehiculo;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class VigilanteTest {
+public class ServicioObtenerVehiculoTest {
 
 	@Autowired
-	Vigilante vigilante;
+	ServicioObtenerVehiculo servicioObtenerVehiculo;
 	
 	@Test
 	@Sql("/vehiculo.sql")
@@ -34,7 +34,7 @@ public class VigilanteTest {
 		String placa = "ABC123";
 		
 		//act
-		List<DtoTicketVehiculo> vehiculosIngresados = vigilante.obtenerVehiculos();
+		List<DtoTicketVehiculo> vehiculosIngresados = servicioObtenerVehiculo.obtenerVehiculos();
 		
 		//assert
 		DtoTicketVehiculo dtoTicketVehiculo = vehiculosIngresados.get(0);

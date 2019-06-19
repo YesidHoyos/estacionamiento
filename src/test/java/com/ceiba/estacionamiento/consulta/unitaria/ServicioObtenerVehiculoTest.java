@@ -16,19 +16,19 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.ceiba.estacionamiento.consulta.dominio.modelo.DtoTicketVehiculo;
-import com.ceiba.estacionamiento.consulta.dominio.modelo.Vigilante;
+import com.ceiba.estacionamiento.consulta.dominio.modelo.ServicioObtenerVehiculo;
 import com.ceiba.estacionamiento.consulta.dominio.repositorio.TicketVehiculoRepositorio;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
 @TestPropertySource(locations = "classpath:application-test.properties")
-public class VigilanteTest {
+public class ServicioObtenerVehiculoTest {
 	
 	@Mock
 	TicketVehiculoRepositorio ticketVehiculoRepositorio;
 	
 	@InjectMocks
-	Vigilante vigilante;
+	ServicioObtenerVehiculo servicioObtenerVehiculo;
 
 	@Test
 	public void obtenerVehiculosTest() {
@@ -43,7 +43,7 @@ public class VigilanteTest {
 		when(ticketVehiculoRepositorio.obtenerVehiculos()).thenReturn(vehiculos);
 		
 		//act
-		List<DtoTicketVehiculo> vehiculosIngresados = vigilante.obtenerVehiculos();
+		List<DtoTicketVehiculo> vehiculosIngresados = servicioObtenerVehiculo.obtenerVehiculos();
 		
 		//assert
 		assertTrue(vehiculosIngresados.contains(carro));
