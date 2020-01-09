@@ -1,7 +1,6 @@
 package com.yesid.estacionamiento.comando.aplicacion.comando;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 public class ComandoVehiculo implements Serializable{
 	

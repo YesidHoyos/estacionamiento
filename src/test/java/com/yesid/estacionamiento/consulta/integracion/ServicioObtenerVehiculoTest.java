@@ -1,9 +1,6 @@
 package com.yesid.estacionamiento.consulta.integracion;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
-import java.time.LocalDateTime;
 
 import java.util.List;
 
